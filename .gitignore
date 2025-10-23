@@ -1,0 +1,20 @@
+# Virtual Environment
+venv/
+ENV/
+.env
+# Neural Network From Scratch/__pycache__
+__pycache__
+plot playground
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+logs/
+checkpoints/
+tensorboard/
+*.log
+*.ckpt
+
