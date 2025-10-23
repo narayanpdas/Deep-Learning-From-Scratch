@@ -65,7 +65,7 @@ def CategoricalCrossEntropy(true_vals:NDArray,model_vals:NDArray)->float:
         raise ValueError("Error: Arrays Not the same Size!")
     else:
         model_vals_clipped = np.clip(model_vals, 1e-9, 1.0)
-        return -np.sum(true_vals * np.log(model_vals_clipped))
+        return -np.sum(true_vals * np.log(model_vals_clipped))/true_vals.shape[0] 
     
 # Categorical Classification Data -> For a single example, One Hot encoded data is used
 # y_true = np.array([0,1,0,0,0])

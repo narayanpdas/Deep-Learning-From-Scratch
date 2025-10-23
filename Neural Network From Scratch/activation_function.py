@@ -24,8 +24,8 @@ def d_leaky_relu(Z: NDArray) -> NDArray:
     return dZ
 # Generally use for the last output layer in Multi - Class Clssification Problem
 def softmax(x:NDArray)->NDArray:
-    _exps = np.exp(x - np.max(x))
-    return _exps / np.sum(_exps)
+    _exps = np.exp(x - np.max(x, axis=-1, keepdims=True))
+    return _exps / np.sum(_exps, axis=-1, keepdims=True)
 
 
 
