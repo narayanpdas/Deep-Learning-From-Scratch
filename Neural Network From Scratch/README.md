@@ -12,7 +12,7 @@
 
 ## Experiments and Results:
 
-![Experiments_Based_on_Model_Complexity]()
+![Experiments_Based_on_Model_Complexity](https://github.com/narayanpdas/Deep-Learning-From-Scratch/blob/main/Neural%20Network%20From%20Scratch/assests/Screenshot%202025-10-24%20130859.png)
 
 ### Color Code as Shown in the curve : Green < Blue < Red < Cyan
 
@@ -22,7 +22,7 @@
 
 ### _"For a simple enough problem lower and simpler models can outperform complex ones"_
 
-![Model_Accuracy_Scores]()
+![Model_Accuracy_Scores](https://github.com/narayanpdas/Deep-Learning-From-Scratch/blob/main/Neural%20Network%20From%20Scratch/assests/Screenshot%202025-10-24%20131016.png)
 
 ### _This Represents the Accuracy Score and results for the best/simpler model, here a 80-20 split was used to compute the Results._
 
