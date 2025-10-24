@@ -101,7 +101,7 @@ class Model:
                 self.gradients[f'db{i+1}'] *= clip_factor
         self.update()
         return batch_loss
-    def fit(self,X_train, Y_train, epochs:int=1, batch_size:int=1):
+    def fit(self,X_train, Y_train, epochs:int=1, batch_size:int=1,verbose:int=1):
         num_samples = X_train.shape[0]
         for epoch in range(epochs):
             epoch_loss = 0
@@ -113,8 +113,10 @@ class Model:
                 epoch_loss += batch_loss * X_batch.shape[0]
             avg_epoch_loss = epoch_loss / num_samples
             self._history[f'Epoch {epoch}'] = avg_epoch_loss
-            print(f"Epoch {epoch}, Loss: {avg_epoch_loss:.4f}")
-        
+            if verbose:
+                print(f"Epoch {epoch}, Loss: {avg_epoch_loss:.4f}")
+    def predict(self,Y_test):
+        return self.forward_pass(Y_test)    
     def __repr__(self):
         return f"<Model layers: {self.layers} lr: {self.lr} >"
 
