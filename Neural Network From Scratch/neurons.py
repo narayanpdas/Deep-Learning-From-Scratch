@@ -6,6 +6,7 @@ from activation_function import relu,d_leaky_relu
 from loss_functions import CategoricalCrossEntropy as CCE
 
 
+
 def calc_loss(true_val:NDArray,pred_val:NDArray):
     if true_val.shape != pred_val.shape:
         raise BaseException(f"Ouput Shapes Mismatach true_val shape :{true_val.shape}, pred_val shape: {pred_val.shape}")
@@ -16,16 +17,26 @@ class Layer():
     def __init__(self,
                 units:int,
                 input_size:int,
-                activation_function:Callable[[float],float]=relu
+                activation_function:Callable[[float],float]=relu,
+                
         ):
         self.units = units
         self.input = input_size
         self.weights = np.random.randn(input_size,units) * np.sqrt(2.0/input_size)
         self.biases = np.zeros(units)
         self.activate = activation_function
+
+    @classmethod
+    def prev(cls,units,activation_function,layer):
+        if not isinstance(layer,Layer):
+            raise TypeError("The Passed argument must be a Layer object")
         
+        return cls(units,
+                    layer.units,
+                    activation_function
+                )
     def _get_layer(self):
-        return self.weights
+        return self.weights,self.biases
     
     def forward_pass(self,_prev_features:NDArray)->Tuple[NDArray,NDArray]:
         z = np.dot(_prev_features,self.weights) + self.biases
@@ -37,16 +48,24 @@ class Layer():
     
 
 class Model:
-    def __init__(self,learning_rate:np.float32=0.01):
+    def __init__(self,learning_rate:np.float32=0.01,
+                loss_function:Callable[[NDArray,NDArray],float]=calc_loss):
         self.layers:List[Layer] = []
         self.lr = learning_rate
         self.cache:Dict[str,NDArray] = {}
         self.gradients:Dict[str,NDArray] = {} 
         self._history :Dict[str,float] = {}
-    def add(self,layer:Layer):
+        self.layer_names:List = []
+        self.prev = -1
+        self.loss_function = loss_function
+    def add(self,layer:Layer,name:str="default_layer"):
+        self.prev+=1
         self.layers.append(layer)
+    
+    
     def history(self):
         return self._history
+    
     def forward_pass(self,X:NDArray)->NDArray:
         self.cache['A0'] = X
         A = X
@@ -83,7 +102,7 @@ class Model:
         m = Y_batch.shape[0]
         if m == 0:
             return
-        batch_loss = calc_loss(Y_batch, A_final)
+        batch_loss = self.loss_function(Y_batch, A_final)
         self.backward_pass(A_final, Y_batch)
         clip_threshold = 1.0 
         total_norm_sq = 0
@@ -101,6 +120,7 @@ class Model:
                 self.gradients[f'db{i+1}'] *= clip_factor
         self.update()
         return batch_loss
+    
     def fit(self,X_train, Y_train, epochs:int=1, batch_size:int=1,verbose:int=1):
         num_samples = X_train.shape[0]
         for epoch in range(epochs):
@@ -114,16 +134,22 @@ class Model:
             avg_epoch_loss = epoch_loss / num_samples
             self._history[f'Epoch {epoch}'] = avg_epoch_loss
             if verbose:
+                print("hellow ",avg_epoch_loss)
                 print(f"Epoch {epoch}, Loss: {avg_epoch_loss:.4f}")
-    def predict(self,Y_test):
-        return self.forward_pass(Y_test)    
+                
+    def predict(self,X_test):
+        return self.forward_pass(X_test)  
+
     def __repr__(self):
         return f"<Model layers: {self.layers} lr: {self.lr} >"
 
 
 
-# gc.collect()
 
 
-
-
+# a = Layer(2,3,activation_function=relu)
+# b = Layer.prev(units=3,activation_function=relu,layer=a)
+# model = Model()
+# model.add(a)
+# model.add(b)
+# print(model)

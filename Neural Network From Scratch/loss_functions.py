@@ -11,7 +11,7 @@ def MSE(true_vals:NDArray,model_vals:NDArray)->float:
         _n = len(true_vals)
         _func = lambda t_val,m_val: t_val**2 + m_val**2 - 2*t_val*m_val
         _mse = sum([_func(t_val,m_val)for t_val,m_val in zip(true_vals,model_vals)]) / _n
-        return _mse
+        return _mse[0]
 
 # Mean Absolute Error
 
@@ -21,8 +21,8 @@ def MAE(true_vals:NDArray,model_vals:NDArray)->float:
     else:
         _n = len(true_vals)
         _func = lambda t_val,m_val: abs(t_val - m_val)
-        _mse = sum([_func(t_val,m_val)for t_val,m_val in zip(true_vals,model_vals)]) / _n
-        return _mse
+        _mae = sum([_func(t_val,m_val)for t_val,m_val in zip(true_vals,model_vals)]) / _n
+        return _mae[0]
 
 
 # y_true = np.array([1,2,3,4])
