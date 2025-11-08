@@ -6,4 +6,4 @@
 
 Summary : A complete neural network built from only NumPy, demonstrating forward/backward propagation.Contains all the implementation of Loss and Activation Functions.
 
-### 2. Transformer (BERT-style) (Coming Soon!)
+### 2. Transformer (BERT-style) (Currently Working!)
