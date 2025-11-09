@@ -1,6 +1,7 @@
 import numpy as np
 from numpy.typing import NDArray
 import math
+from abc import ABC , abstractmethod
 
 def sigmoid(x:float)->float:
     return 1 / (1 + math.exp(-x))
@@ -9,6 +10,7 @@ def tanh(x:float)->float:
     ex = math.exp(x)
     ex_ = math.exp(-x)
     return ((ex - ex_) / (ex + ex_))
+
 
 def relu(x: NDArray)->float:
     return np.maximum(0,x)
@@ -26,8 +28,6 @@ def d_leaky_relu(Z: NDArray) -> NDArray:
 def softmax(x:NDArray)->NDArray:
     _exps = np.exp(x - np.max(x, axis=-1, keepdims=True))
     return _exps / np.sum(_exps, axis=-1, keepdims=True)
-
-
 
 
 

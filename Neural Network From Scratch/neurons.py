@@ -22,7 +22,7 @@ class Layer():
         ):
         self.units = units
         self.input = input_size
-        self.weights = np.random.randn(input_size,units) * np.sqrt(2.0/input_size)
+        self.weights = np.random.randn(input_size,units) * np.sqrt(2.0 / input_size) # Scalling for better init
         self.biases = np.zeros(units)
         self.activate = activation_function
 
@@ -144,12 +144,3 @@ class Model:
         return f"<Model layers: {self.layers} lr: {self.lr} >"
 
 
-
-
-
-# a = Layer(2,3,activation_function=relu)
-# b = Layer.prev(units=3,activation_function=relu,layer=a)
-# model = Model()
-# model.add(a)
-# model.add(b)
-# print(model)
