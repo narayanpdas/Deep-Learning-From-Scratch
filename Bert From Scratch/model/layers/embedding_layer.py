@@ -2,13 +2,13 @@ import numpy as np
 from numpy.typing import NDArray
 from typing import List,Dict
 from tokenizer.tokenizer import Tokenizer
-from layer import Layer
+from layers.layer import Layer
 
 HIDDEN_SIZE = 768
 VOCAB_SIZE = 30000
 max_token_len = 32
 class EmbeddingLayer(Layer):
-    def __init__(self,max_token_len:int=max_token_len,
+    def __init__(self,max_token_len:int,
                 vocab_size:int=VOCAB_SIZE,
                 hidden_units:int=HIDDEN_SIZE):
         self.token_embedding_layer = np.random.normal(loc=0.0,
@@ -31,7 +31,7 @@ class EmbeddingLayer(Layer):
         
         inputid_ws = self.token_embedding_layer[input_ids]
         tokentypeids_ws = self.segment_embedding_layer[token_type_ids]
-        positinal_ws = self.postional_embedding_layer[np.arange(max_token_len)]
+        positinal_ws = self.postional_embedding_layer[np.arange(self.max_token_len)]
         return inputid_ws + tokentypeids_ws + positinal_ws
     
     def backward_pass(self,d_out:NDArray):
@@ -55,14 +55,7 @@ class EmbeddingLayer(Layer):
         self.postional_embedding_layer -= lr * self.gradients['dw_posids']
         
         
-inputt = ['hellow world','ieu wowqden']
-tokenizer = Tokenizer("Bert From Scratch/model/tokenizer/vocab.txt",max_len=32)
-tokenizer.tokenize(sent=inputt)
-layer1 = EmbeddingLayer()
-val = layer1.forward_pass(tokenizer.input_ids_nd,
-                        tokenizer.token_type_ids_nd,
-                        )
-print(val.shape,val)
+
 
 
 

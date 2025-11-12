@@ -1,8 +1,7 @@
 import numpy as np
 from numpy.typing import NDArray
 from typing import List,Dict
-from layer import Layer
-# from activation.activation_function import activation_function
+from layers.layer import Layer
 
 class LayerNorm(Layer):
     

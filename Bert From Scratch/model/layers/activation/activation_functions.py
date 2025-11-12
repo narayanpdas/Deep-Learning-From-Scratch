@@ -15,7 +15,7 @@ class activation_function(ABC):
     def d_activate(self,):
         pass
 
-class relu(activation_function):
+class Relu(activation_function):
     def __init__(self):
         pass
     def activate(self,x: NDArray):
@@ -25,7 +25,7 @@ class relu(activation_function):
         dz[z<=0] = 0
         return dz
     
-class leaky_relu(activation_function):
+class Leaky_Relu(activation_function):
     def __init__(self,b:np.float32=0.01):
         self.b = b
     def activate(self,x: NDArray):
@@ -35,7 +35,7 @@ class leaky_relu(activation_function):
         dz[z<=0] = self.b
         return dz
 
-class softmax_wd(activation_function):
+class Softmax_WD(activation_function):
     # Made keeping in Mind for the use case in attention only models.
     def __init__(self):
         self.cache:Dict= {}
@@ -50,6 +50,14 @@ class softmax_wd(activation_function):
         d_Z = A * (d_A - sum_part)
         return d_Z
 
+class Linear(activation_function):
+    def __init__(self):
+        pass
+    def activate(self, x:NDArray):
+        return x
+    def d_activate(self,d_out:NDArray):
+        return np.ones_like(d_out)
+        
 # Generally use for the last output layer in Multi - Class Clssification Problem
 def softmax(x:NDArray)->NDArray:
     _exps = np.exp(x - np.max(x, axis=-1, keepdims=True))

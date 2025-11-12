@@ -11,7 +11,7 @@ plot playground
 *.swp
 *.swo
 .DS_Store
-single_head_attentionlayer.py
+# single_head_attentionlayer.py
 logs/
 checkpoints/
 tensorboard/

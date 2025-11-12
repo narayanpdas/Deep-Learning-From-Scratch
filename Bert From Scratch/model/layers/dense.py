@@ -1,9 +1,8 @@
-from layer import Layer
 import numpy as np
 from typing import List, Dict,Tuple
 from numpy.typing import NDArray
-from activation.activation_function import activation_function
-
+from layers.activation.activation_functions import activation_function
+from layers.layer import Layer
 
 class Dense(Layer):
     def __init__(self,
