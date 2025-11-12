@@ -8,7 +8,7 @@ Assembles all the layer components, includes a MLM layer, a Dense Layer with the
 
 This is basically the Logits Layer and we apply a softmax on it for the probs.
 
-![Here's an overview of the BERT Model]()
+![Here's an overview of the BERT Model](https://github.com/narayanpdas/Deep-Learning-From-Scratch/blob/main/Bert%20From%20Scratch/assests/Model_overview.png)
 
 ## Tokenizer:
 
@@ -16,13 +16,13 @@ This is basically the Logits Layer and we apply a softmax on it for the probs.
 
 ### REPRESENTATION:
 
-> - input_ids = (CLS_token, token1 , token2, token3,....max_token_len)
+> input_ids = (CLS_token, token1 , token2, token3,....max_token_len)
 
-> - input_type_ids =(all zeros for 1 sentence) or (0 0 0 .. 1 1 1...0 0 0)  
->   zeros are for padded tokens if any
+> input_type_ids =(all zeros for 1 sentence) or (0 0 0 .. 1 1 1...0 0 0)  
+>  zeros are for padded tokens if any
 
-> - attention_mask = (1 1 1 1 1 ...0 0 0 0)
->   zeros are for padded tokens if any
+> attention_mask = (1 1 1 1 1 ...0 0 0 0)  
+> zeros are for padded tokens if any
 
 ## Layers Added and Implemented So far:
 
@@ -30,7 +30,7 @@ This is basically the Logits Layer and we apply a softmax on it for the probs.
 
 - Embedding Layer (max_token_len,vocab_size,hidden_units): The Starting layer for the model to take in the input_ids and input_type_ids and combine those with the postional_embedding_layer to be used as a sinle input for further down the line.
 
-  ![From the Arxiv's Bert Paper 2018-19]()
+  ![From the Arxiv's Bert Paper 2018-19](https://github.com/narayanpdas/Deep-Learning-From-Scratch/blob/main/Bert%20From%20Scratch/assests/embedding_layer_representation.png)
 
 - Normalization Layer(hidden_units): The Layer to Normalize Outputs from other Layers for more stable training.
 
@@ -47,8 +47,9 @@ This is basically the Logits Layer and we apply a softmax on it for the probs.
 Made to load data as we move on in the training, a single at a time.
 
 - What it Does is loads the pre-tokenized data from a .parquet file.
-  > - \_\_len\_\_(): Gives the Length of the entire set.
 
-> - load_x(idx): Returns the y_train(input_tokens),input_type_ids and attention_mask at that index of the dataset.
+> \_\_len\_\_(): Gives the Length of the entire set.
 
-> - load_y(idx): Returns x_masked or x_train(x_input_ids) and loss_mask used for the backward propagation.
+> load_x(idx): Returns the y_train(input_tokens),input_type_ids and attention_mask at that index of the dataset.
+
+> load_y(idx): Returns x_masked or x_train(x_input_ids) and loss_mask used for the backward propagation.
