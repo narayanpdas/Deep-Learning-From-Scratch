@@ -6,6 +6,6 @@
 
 Summary : A complete neural network built from only NumPy, demonstrating forward/backward propagation.Contains all the implementation of Loss and Activation Functions.
 
-### 2. Transformer (BERT-style) (Currently Working!)
+### 2. Transformer (BERT) (Currently Optimizing!)
 
 [Go to Project](https://github.com/narayanpdas/Deep-Learning-From-Scratch/tree/main/Bert%20From%20Scratch)
